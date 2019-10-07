@@ -1,5 +1,18 @@
 ﻿  Unicode UTF-8 version 1.cpp
-C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(44,18): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(87,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(83): warning C4715:  'converter::getHexCharacter': not all control paths return a value
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(12,1): warning C4005: 'UNICODE': macro redefinition
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp : message : see previous definition of 'UNICODE'
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(13,1): warning C4005: '_UNICODE': macro redefinition
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp : message : see previous definition of '_UNICODE'
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(52,18): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(94,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(145,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(149,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(159,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(161,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(170,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(186,45): warning C4566: character represented by universal-character-name '\u0920' cannot be represented in the current code page (1257)
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(186,55): warning C4566: character represented by universal-character-name '\u047C' cannot be represented in the current code page (1257)
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(186,65): warning C4566: character represented by universal-character-name '\u00D2' cannot be represented in the current code page (1257)
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(181,15): warning C4101: 'hex': unreferenced local variable
+C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Unicode UTF-8 version 1\Unicode UTF-8 version 1.cpp(91): warning C4715: 'converter::getHexCharacter': not all control paths return a value
   Unicode UTF-8 version 1.vcxproj -> C:\Users\Tomas\source\repos\Unicode UTF-8 version 1\Debug\Unicode UTF-8 version 1.exe
