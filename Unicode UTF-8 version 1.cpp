@@ -1,6 +1,6 @@
 // Unicode UTF-8 version 1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+//Program takes decimal, converts to unicode number, utf code and a symbol (if not shown on screen then you can see in txt file)
+#include <fstream>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -9,6 +9,9 @@
 #include <io.h>
 #include <stdio.h>
 #include <clocale>
+#include <codecvt>
+#include <locale>
+//#include <sstream>
 #define UNICODE
 #define _UNICODE
 using namespace std;
@@ -18,9 +21,9 @@ private:
 	int decimal;
 	string binary;
 	string hex;
-	string utf8;
+	vector <string> bytes = {};
 public:
-	converter() :dec(0), decimal(0),binary(""), hex(""), utf8("") {};
+	converter() :dec(0), decimal(0),binary(""), hex("") {};
 
 	void input() {
 		cout << "Enter decimal number: ";
@@ -56,7 +59,7 @@ public:
 		}
 		cout <<"Bin:"<< binary<<endl;	
 	}
-	char getHexCharacter(std::string str)
+	char getHexCharacter(string str)
 	{
 		if (str.compare("1111") == 0) return 'F';
 		else if (str.compare("1110") == 0) return 'E';
@@ -98,13 +101,13 @@ public:
 		return hex;
 	}
 
-	void getUtf() 
+	void getBinUtf() 
 	{
 		int x_vietu(0);
 		int pildyt_nuliais(0);
 		int pildyt_bin=0;
 		cout << endl;
-		vector <string> bytes = {};
+		
 		if (decimal <= 127) //Byte 1
 		{
 			bytes.push_back("0xxxxxxx");
@@ -142,20 +145,32 @@ public:
 			pildyt_nuliais = x_vietu - binary.length();
 
 		}
-		for (int i = 0; i < bytes.size(); i++)
-			{
-				if (pildyt_nuliais > 0)
-				{
-					for (int j = 0; j < bytes[i].length(); j++)
-					{
-						if (bytes[i][j] == 'x'&&pildyt_nuliais>0)
+		if (pildyt_nuliais > 0) {
+
+			for (int i = 0; i < bytes.size(); i++)
 						{
-						bytes[i][j] = '0'; 
-						pildyt_nuliais--;
+							if (pildyt_nuliais > 0)
+							{
+								for (int j = 0; j < bytes[i].length(); j++)
+								{
+									if (bytes[i][j] == 'x'&&pildyt_nuliais>0)
+									{
+									bytes[i][j] = '0'; 
+									pildyt_nuliais--;
+									}
+								}
+							}
 						}
-					}
-				}
+		}
+		else {
+			int kiekis(binary.length() - x_vietu);
+			while (binary[pildyt_bin] == '0' && kiekis > 0)
+			{
+				pildyt_bin++;
+				kiekis--;
 			}
+		}
+		
 			for (int i = 0; i < bytes.size(); i++)
 			{
 				for (int j = 0; j < bytes[i].length(); j++)
@@ -167,35 +182,82 @@ public:
 					}
 				}
 			}
+			cout << "utf binary: ";
 		for(int i=0;i<bytes.size();i++)
 		cout << bytes[i]<< " ";
+		cout << endl;
 	}
-
+	void getUtf(vector <string> &utf8) {
+		string hexadecimal="";
+		for (int i = 0; i < bytes.size(); i++)
+		{
+			binary = bytes[i];
+			for (int j = 0; j < binary.length(); j = j + 4)
+					{
+						hexadecimal += getHexCharacter(binary.substr(j, 4));
+					}
+			utf8.push_back(hexadecimal);
+			hexadecimal = "";
+		}
+	}
 	~converter() {};
 };
 int main()
 {
+	//stringstream str;
+	vector <string> utf;
 	setlocale(LC_ALL, "");
 	//http://cppwhispers.blogspot.com/2012/11/unicode-and-your-application-3-of-n.html
-	converter test;
-	unsigned int hex;
-	test.input();
-	test.decToBinary();
-
-	cout << "HEX: "<<test.getHex();
-	constexpr unsigned char s[4] = { '\u00C4', '\u0920', '\u047C', '\u00D2' };
+	converter utf8;
+	string shex; //string hex
+	string uhex; //unicode string
+	const std::locale utf8_locale = std::locale(std::locale(), new std::codecvt_utf8<wchar_t>());
+	utf8.input();
+	utf8.decToBinary();
+	shex = utf8.getHex();
+	utf8.getBinUtf();
+	utf8.getUtf(utf);
+	///////////////////////
+	//cout << "HEX: "<<utf8.getHex();
+	//constexpr unsigned char s[4] = { '\u00C4', '\u0920', '\u047C', '\u00D2' };
 	cout << endl;
-	for(int i=0;i<4;i++)
-	cout<<s[i]<<" ";
-	test.getUtf();
-
+	//for(int i=0;i<4;i++)
+	//cout<<s[i]<<" ";
+	//////////////////////
+	uhex = shex;
+	while (uhex.length() != 4)
+	{
+		uhex = '0'+uhex;
+	}
+	////// OUT //////////
+	cout << "UNICODE: U+" << uhex;
+	cout << endl;
+	cout << "UTF-8: ";
+	for (int i = 0; i < utf.size(); i++)
+	{
+		cout << utf[i] << " ";
+	}
+	cout << endl;
+	cout << "CHAR: ";
+	//Pavercia su wchar_t string hexadecimal i simboli
+    wchar_t symbol = strtol(shex.c_str(), NULL, 16);
+    wcout << symbol << endl;
+	////To File Symbol/////
+	wofstream rf(L"test.txt");
+	rf.imbue(utf8_locale);
+	rf << symbol;
+	cout << endl;
+	cout << "If there is no symbol, open test.txt" << endl;
 }
 //Get dec from hex:
-		//number = stoi(test.getHex(), 0, 16);	
+		//number = stoi(utf8.getHex(), 0, 16);	
 	
-	/*
-	klausimai: 
-	Ar nieko daryti sita su java, ar nemaisys, kai kita uzd padaryta su c++
-	Ar ir turi buti tik vienas rodomas simbolis is situ..?
-	reiks paskui paverst i skaiciu, is int gales paverst i zenkla
+/*		Atspausdina string hex kaip int
+
+	std::string your_string_rep{ shex };
+	int int_rep = stoi(your_string_rep, 0, 16);
+	std::cout << int_rep << '\n';
+	std::cout << std::hex << std::showbase << int_rep << '\n';
+	cout << int_rep;
+	
 	*/
